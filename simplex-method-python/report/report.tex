@@ -86,12 +86,32 @@ Programm can solve both types of LPP.
 \vspace{12pt}
 The input contains:
 \begin{itemize}
+    \item Maximization or minimization problem
     \item A vector of coefficients of objective function - $A$.
     \item Size of the matrix of coefficients of constraint function - $m$ and $n$
     \item A matrix of coefficients of constraint function - $C$.
     \item A vector of right-hand side numbers - $b$.
     \item The approximation accuracy $approx$.
 \end{itemize}
+
+\vspace{12pt}
+\textbf{Example of input:}
+\begin{verbatim}
+    1 
+    
+    5  4  0  0  0  0
+
+    4  6
+
+    6  4  1  0  0  0 
+    1  2  0  1  0  0
+    -1 1  0  0  1  0
+    0  1  0  0  0  1
+
+    24  6  1  2
+
+    1.0000001
+\end{verbatim}
 
 \vspace{12pt}
 \noindent     \textbf{Output/Results}
@@ -105,6 +125,21 @@ or
     \item A vector of decision variables - $X^*$.
     \item Maximum (minimum) value of the objective function.
 \end{itemize}
+
+\vspace{12pt}
+\textbf{Example of output:}
+
+\begin{verbatim}
+    ### Maximum achived ###
+
+    ######################################
+    ### ANSWER                         ###
+    ### Vector of decision variables   ###
+    ### Values of 'x' vector is [3.0, 1.5, 0, 0, 2.5, 0.5]
+    ### Value of function is 21
+    ### Programm finished successfully ###
+    ######################################
+\end{verbatim}
 
 \noindent
 \begin{tikzpicture}
