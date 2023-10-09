@@ -1,7 +1,7 @@
 import numpy as np
 import itertools as itls
 import math
-from decimal import Decimal, getcontext
+from decimal import Decimal
 
 # Disable 'divide by zero' warning
 np.seterr(divide='ignore')  
@@ -33,7 +33,7 @@ approx = Decimal(input("### Write approximation accuracy: "))
 approx = abs(approx.as_tuple().exponent)
 
 # Set up presicion
-getcontext().prec = 3
+# np.set_printoptions(precision=approx, suppress=True)
 
 # Save shape of array 
 n, m = C.shape
@@ -130,7 +130,7 @@ while True:
             = basic_seq[leaving_var_ind], non_basic_seq[enter_var_ind]
 
 # Final vector x generation
-X_final = [X_b[basic_seq.index(i)] if i in basic_seq else 0 for i in range(m)]
+X_final = [round(X_b[basic_seq.index(i)], approx) if i in basic_seq else 0 for i in range(m)]
 
 # Answer output
 print()
