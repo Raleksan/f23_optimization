@@ -38,12 +38,12 @@
 \noindent  \textbf{Team information.}
 
 \begin{itemize}
-    \item Team leader: ................................
-    \item Team member 1: .............................
-    \item Team member 2: .............................
-    \item Team member 3: .............................
-    \item Team member 4: .............................
-    \item Team member 5: .............................
+    \item Team leader: Aleksandr Ryabov
+    \item Team member 1: Aleksandr Ryabov
+    \item Team member 2: Aleksandr Ryabov
+    \item Team member 3: Aleksandr Ryabov
+    \item Team member 4: Aleksandr Ryabov
+    \item Team member 5: Aleksandr Ryabov
 \end{itemize}
 \vspace{12pt}
 \noindent     \textbf{Link to the product.}
@@ -55,7 +55,7 @@
 
 \noindent  \textbf{Programming language.}
 \begin{itemize}
-    \item Programming language: 
+    \item Programming language: Python
 \end{itemize}
 
 \vspace{12pt}
@@ -63,11 +63,20 @@
 \noindent  \textbf{Linear programming problem.}
 \begin{itemize}
 \item Maximization or Minimization?
+\\
+Programm can solve both types of LPP. 
 \vspace{10pt}
-    \item Objective function:
+    \item Objective function: $F = 5x_1 + 4x_2 + 0x_3 + 0x_4 + 0x_5 + 0x_6$
     \vspace{10pt}
     \item Constraint functions:
-    \vspace{5cm}
+    \begin{gather*}
+        6x_1 + 4x_2 + x_3 = 24 \\
+        1x_1 + 2x_2 + x_4 = 6  \\
+        -1x_1 + 1x_2 + x_5 = 1 \\
+        0x_1 + 1x_2 + x_6 = 2  \\
+        x_1,...,x_6 \geq 0
+    \end{gather*}
+    \vspace{2cm}
 \end{itemize}
 
 
@@ -77,10 +86,11 @@
 \vspace{12pt}
 The input contains:
 \begin{itemize}
-    \item A vector of coefficients of objective function - $C$.
-    \item A matrix of coefficients of constraint function - $A$.
+    \item A vector of coefficients of objective function - $A$.
+    \item Size of the matrix of coefficients of constraint function - $m$ and $n$
+    \item A matrix of coefficients of constraint function - $C$.
     \item A vector of right-hand side numbers - $b$.
-    \item The approximation accuracy $\epsilon$.
+    \item The approximation accuracy $approx$.
 \end{itemize}
 
 \vspace{12pt}
@@ -88,10 +98,10 @@ The input contains:
 
 The output contains:
 \begin{itemize}
-    \item The string "The method is not applicable!"
+    \item Messange with error and string "The method is not applicable!"
     
 or
-
+    \item Messange with programm success
     \item A vector of decision variables - $X^*$.
     \item Maximum (minimum) value of the objective function.
 \end{itemize}

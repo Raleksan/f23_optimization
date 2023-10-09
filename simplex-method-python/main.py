@@ -1,6 +1,7 @@
 import numpy as np
 import itertools as itls
 import math
+from decimal import Decimal, getcontext
 
 # Disable 'divide by zero' warning
 np.seterr(divide='ignore')  
@@ -28,8 +29,11 @@ C = np.array(arr, np.float64)
 temp_str = str(input("### Write a vector of right-hand side numbers: \n"))
 b = np.array(list(map(float, temp_str.split())), np.float64)
 
-approx = float(input("### Write approximation accuracy: "))
+approx = Decimal(input("### Write approximation accuracy: "))
+approx = abs(approx.as_tuple().exponent)
 
+# Set up presicion
+getcontext().prec = 3
 
 # Save shape of array 
 n, m = C.shape
@@ -125,13 +129,15 @@ while True:
         non_basic_seq[enter_var_ind], basic_seq[leaving_var_ind] \
             = basic_seq[leaving_var_ind], non_basic_seq[enter_var_ind]
 
+# Final vector x generation
+X_final = [X_b[basic_seq.index(i)] if i in basic_seq else 0 for i in range(m)]
 
 # Answer output
 print()
 print("######################################")
 print("### ANSWER                         ###")
 print("### Vector of decision variables   ###")
-print("### Values of 'x' vector is", X_b)
+print("### Values of 'x' vector is", X_final)
 print("### Value of function is", math.ceil(z))
 print("### Programm finished successfully ###")
 print("######################################")
