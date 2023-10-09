@@ -1,5 +1,6 @@
 import numpy as np
 import itertools as itls
+import math
 
 # Input data
 maximization = True
@@ -25,42 +26,44 @@ n, m = C.shape
 
 # Step 0
 # Find basic feasible solution
+
+# Iterate over all possible variance of 
+# basic and non-basic variables (vectors)
 for seq in itls.permutations(((m - n) * [0] + n * [1]), m):
 
     # Generate index sequence for array shaping
     basic_seq = [i for i in range(0, len(seq)) if seq[i] == 1]
     non_basic_seq = [i for i in range(0, len(seq)) if seq[i] == 0]
 
-    print(basic_seq, non_basic_seq)
-
-    A_tmp = A[basic_seq]
-    C_tmp = C[:, basic_seq]
-
     # Check linear dependency 
     # using eigenvalue decomposition 
     lambdas, V = np.linalg.eig(C[:, basic_seq].T)
-    # print(C[:, basic_seq][lambdas == 0, :])
+    
+    # If vectors are linear dependent,
+    # trying to find other
+    # else start simplex algorithm 
     if len(C[:, basic_seq][lambdas == 0, :]) != 0 :
         continue
     else:
         break 
 
 while True:
+    
     # Step 1 & 2
     # Compute inverse and z - c
     # Check optimality of the solution
 
     # Count X_b
-    X_b = np.linalg.inv(C[:, basic_seq]) @ b # np.transpose may be needed
-    # print("X_b ", X_b)
+    X_b = np.linalg.inv(C[:, basic_seq]) @ b
 
     # Count z - c        
-    Z_c = A[basic_seq] @ np.linalg.inv(C[:, basic_seq]) @ C[:, non_basic_seq] - A[non_basic_seq]
+    Z_c = A[basic_seq] @ np.linalg.inv(C[:, basic_seq]) \
+            @ C[:, non_basic_seq] - A[non_basic_seq]
 
     # Count z
     z = A[basic_seq] @ X_b
 
-    # Cheking optimality
+    # Cheking optimality of the solution
 
     # Maximization optimal
     if (maximization and all(i > 0 for i in Z_c)):
@@ -90,6 +93,12 @@ while True:
         # Count B_p
         B_p = np.linalg.inv(C[:, basic_seq]) @ C[:, enter_var_ind]
 
+        # Check solution bound
+        if all(i <= 0 for i in B_p):
+            print("### Solution is unbounded ###")
+            print("### Exit from programm ###")
+            exit()
+
         # Compute slope cooficient
         k = np.divide(X_b, B_p)
         k = [i if (i >= 0 and i != float('inf')) else float('inf') for i in k]
@@ -102,12 +111,16 @@ while True:
         # Form new basis
 
         # Update state of the basic and non-basic vectors
-        non_basic_seq[enter_var_ind], basic_seq[leaving_var_ind] = basic_seq[leaving_var_ind], non_basic_seq[enter_var_ind]
-
-    print(basic_seq)
-
+        non_basic_seq[enter_var_ind], basic_seq[leaving_var_ind] \
+            = basic_seq[leaving_var_ind], non_basic_seq[enter_var_ind]
 
 
-
-
-print("endd")
+# Answer output
+print()
+print("######################################")
+print("### ANSWER                         ###")
+print("### Vector of decision variables   ###")
+print("### X is", X_b)
+print("### Z is", math.ceil(z))
+print("### Programm finished successfully ###")
+print("######################################")
