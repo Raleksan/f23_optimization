@@ -2,6 +2,9 @@ import numpy as np
 import itertools as itls
 import math
 
+# Disable 'divide by zero' warning
+np.seterr(divide='ignore')  
+
 # Input data
 maximization = True
 approx = 0.001
