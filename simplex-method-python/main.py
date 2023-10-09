@@ -5,24 +5,30 @@ import math
 # Disable 'divide by zero' warning
 np.seterr(divide='ignore')  
 
-# Input data
-maximization = True
-approx = 0.001
+# Welcoming
+print("### Welcome to Simplex method programm *_* ")
 
-C = np.array([
-    [6,  4, 1, 0, 0, 0],
-    [1,  2, 0, 1, 0, 0],
-    [-1, 1, 0 ,0, 1, 0],
-    [0,  1, 0, 0, 0, 1]
-])
+# Read input values
+print("### Is your linear program about maximization?")
+maximization = bool(int(input("### If yes, print 1, else print 0: ")))
 
-A = np.array([
-    5, 4, 0, 0, 0, 0
-])
+temp_str = str(input("### Write a vector of coefficients of objective function: \n"))
+A = np.array(list(map(float, temp_str.split())), np.float64)
 
-b = np.array([
-    24, 6, 1, 2
-])
+a, b = map(int, input("### Write size of the matrix m and n: ").split())
+print("### Write a matrix of coefficients of constraint function: ")
+
+arr = []
+for _ in range(a):
+    temp_str = str(input())
+    arr.append(list(map(float, temp_str.split())))
+
+C = np.array(arr, np.float64)
+
+temp_str = str(input("### Write a vector of right-hand side numbers: \n"))
+b = np.array(list(map(float, temp_str.split())), np.float64)
+
+approx = float(input("### Write approximation accuracy: "))
 
 # Save shape of array 
 n, m = C.shape
