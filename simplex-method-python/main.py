@@ -30,6 +30,7 @@ b = np.array(list(map(float, temp_str.split())), np.float64)
 
 approx = float(input("### Write approximation accuracy: "))
 
+
 # Save shape of array 
 n, m = C.shape
 
@@ -105,6 +106,7 @@ while True:
         # Check solution bound
         if all(i <= 0 for i in B_p):
             print("### Solution is unbounded ###")
+            print("### ”The method is not applicable! ###")
             print("### Exit from programm ###")
             exit()
 
@@ -129,7 +131,7 @@ print()
 print("######################################")
 print("### ANSWER                         ###")
 print("### Vector of decision variables   ###")
-print("### X is", X_b)
-print("### Z is", math.ceil(z))
+print("### Values of 'x' vector is", X_b)
+print("### Value of function is", math.ceil(z))
 print("### Programm finished successfully ###")
 print("######################################")
