@@ -74,35 +74,35 @@ while True:
         
     # Min/Max not optimal
     else:
-        pass
 
-    # Determine entering variable (vector)
-    enter_var_ind = 0
-    if maximization:
-        enter_var_ind = np.argmin(Z_c)
-    else: 
-        enter_var_ind = np.argmax(Z_c)
-
-
-    # Step 3
-    # Check solition bound
-    # Determine leaving variable (vector)
-
-    B_p = np.linalg.inv(C[:, basic_seq]) @ C[:, enter_var_ind]
-
-    # Compute slope cooficient
-    k = np.divide(X_b, B_p)
-    k = [i if (i >= 0 and i != float('inf')) else float('inf') for i in k]
-
-    # Determine leaving value
-    leaving_var_ind = np.argmin(k)
+        # Determine entering variable (vector)
+        enter_var_ind = 0
+        if maximization:
+            enter_var_ind = np.argmin(Z_c)
+        else: 
+            enter_var_ind = np.argmax(Z_c)
 
 
-    # Step 4
-    # Form new basis
+        # Step 3
+        # Check solition bound
+        # Determine leaving variable (vector)
 
-    # Update state of the basic and non-basic vectors
-    non_basic_seq[enter_var_ind], basic_seq[leaving_var_ind] = basic_seq[leaving_var_ind], non_basic_seq[enter_var_ind]
+        # Count B_p
+        B_p = np.linalg.inv(C[:, basic_seq]) @ C[:, enter_var_ind]
+
+        # Compute slope cooficient
+        k = np.divide(X_b, B_p)
+        k = [i if (i >= 0 and i != float('inf')) else float('inf') for i in k]
+
+        # Determine leaving value
+        leaving_var_ind = np.argmin(k)
+
+
+        # Step 4
+        # Form new basis
+
+        # Update state of the basic and non-basic vectors
+        non_basic_seq[enter_var_ind], basic_seq[leaving_var_ind] = basic_seq[leaving_var_ind], non_basic_seq[enter_var_ind]
 
     print(basic_seq)
 
